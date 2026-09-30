@@ -1,0 +1,8 @@
+# local tooling
+.claude/
+.DS_Store
+# the in-browser simulator is not part of the first public version
+# (and carries the policy weights, which are released upon acceptance)
+sim/
+coi-serviceworker.min.js
+qr/
