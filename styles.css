@@ -507,3 +507,9 @@ main { margin-left: var(--rail); }
 @media (max-width: 760px) { .bench__meta { display: none; } }
 .take--solo { margin-top: 40px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; }
 .take--solo figcaption strong { color: var(--paper); }
+.more { margin-top: 4px; }
+.more summary { cursor: pointer; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); list-style: none; }
+.more summary::before { content: "+ "; color: var(--force-2); }
+.more[open] summary::before { content: "− "; }
+.more summary::-webkit-details-marker { display: none; }
+.more p { margin-top: 14px; color: var(--paper-2); font-size: 15.5px; }
