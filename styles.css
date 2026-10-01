@@ -513,3 +513,7 @@ main { margin-left: var(--rail); }
 .more[open] summary::before { content: "− "; }
 .more summary::-webkit-details-marker { display: none; }
 .more p { margin-top: 14px; color: var(--paper-2); font-size: 15.5px; }
+.hero__authors { font-size: 16px; line-height: 1.6; color: var(--paper); max-width: 60ch; }
+.hero__authors a { color: var(--paper); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--paper) 35%, transparent); }
+.hero__authors a:hover { border-bottom-color: var(--force-2); color: #fff; }
+.hero__affil { display: block; margin-top: 4px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.04em; color: var(--paper-2); }
