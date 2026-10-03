@@ -67,7 +67,6 @@ previous session), and exclude nothing. Without it, `sim/` and
 
 ## Things to update before camera-ready
 
-- Jiakang Chen has no homepage link yet (hero author block).
 - `Code · upon acceptance` button in the hero → real repository link.
 - Paper PDF and figures if the camera-ready differs from the draft.
 
