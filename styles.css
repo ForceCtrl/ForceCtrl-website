@@ -1,11 +1,15 @@
-/* Ctrl-F project page: one column, one typeface, no ornament. */
+/* Ctrl-F project page. Dark ground, keycap wordmark, one typeface, no ornament. */
 
 :root {
-  --text: #1c1c1c;
-  --text-2: #5b5b5b;
-  --rule: #e2e2e2;
-  --link: #1f4e9c;
+  --ink: #0e0f12;
+  --ink-2: #16181d;
+  --line: #2a2d36;
+  --paper: #eae6de;
+  --paper-2: #b9b4aa;
+  --muted: #8a867e;
+  --accent: #ff8a45;
   --width: 960px;
+  --font: -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -13,57 +17,76 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: #fff;
-  color: var(--text);
-  font-family: -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font);
   font-size: 18px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-main { max-width: var(--width); margin: 0 auto; padding: 56px 24px 80px; }
+main { max-width: var(--width); margin: 0 auto; padding: 0 24px 80px; }
 
 h1, h2, h3 { margin: 0; line-height: 1.2; font-weight: 600; }
-h1 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.01em; }
-h2 { font-size: 26px; margin: 72px 0 16px; padding-top: 24px; border-top: 1px solid var(--rule); }
+h2 { font-size: 26px; margin: 72px 0 16px; padding-top: 24px; border-top: 1px solid var(--line); }
 h3 { font-size: 19px; margin: 36px 0 12px; }
 p { margin: 0 0 14px; }
-a { color: var(--link); }
+a { color: var(--paper); }
 img, video { display: block; width: 100%; height: auto; }
 
-/* title block */
-.title { text-align: center; }
-.title h1 { max-width: 20ch; margin: 0 auto 14px; }
-.authors { color: var(--text-2); margin-bottom: 6px; }
-.links { margin-bottom: 28px; }
-.links a, .links span {
-  display: inline-block; margin: 4px 6px; padding: 7px 16px;
-  border: 1px solid var(--rule); border-radius: 999px;
-  color: var(--text); text-decoration: none; font-size: 16px;
+/* hero */
+.hero {
+  position: relative; min-height: 560px; overflow: hidden;
+  display: grid; align-items: end;
+  margin: 0 -24px 8px; border-bottom: 1px solid var(--line);
 }
-.links a:hover { border-color: var(--text); }
-.links span { color: var(--text-2); }
-.teaser { border-radius: 6px; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.hero-shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(14,15,18,0.15) 0%, rgba(14,15,18,0.4) 45%, rgba(14,15,18,0.94) 100%),
+    linear-gradient(90deg, rgba(14,15,18,0.7) 0%, rgba(14,15,18,0.2) 55%, rgba(14,15,18,0) 100%);
+}
+.hero-inner { position: relative; padding: clamp(160px, 26vw, 280px) 24px 44px; max-width: 760px; }
+.hero h1 { font-size: clamp(26px, 3.4vw, 40px); margin: 14px 0 14px; max-width: 22ch; }
+.lede { color: var(--paper-2); max-width: 58ch; font-size: 18px; }
+.authors { color: var(--paper-2); margin-bottom: 16px; font-size: 16px; }
+.links { margin: 0; }
+.links a, .links span {
+  display: inline-block; margin: 0 8px 8px 0; padding: 8px 16px;
+  border: 1px solid var(--line); border-radius: 4px;
+  color: var(--paper); text-decoration: none; font-size: 16px;
+  background: rgba(22,24,29,0.75);
+}
+.links a:hover { border-color: var(--paper-2); }
+.links a:first-child { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.links span { color: var(--muted); }
+
+/* keycap wordmark */
+.wordmark { display: flex; align-items: center; gap: 0.18em; margin: 0; font-size: clamp(56px, 9vw, 104px); line-height: 1; }
+.key {
+  display: inline-block; font-weight: 700; line-height: 1; letter-spacing: -0.01em;
+  color: var(--ink); background: var(--paper);
+  border-radius: 0.14em; padding: 0.18em 0.32em 0.22em;
+  box-shadow: 0 0.06em 0 0 #b9b3a8, 0 0.12em 0 0 #8f8a80, 0 0.14em 0.5em rgba(0,0,0,0.5);
+}
+.plus { font-weight: 300; font-size: 0.55em; color: var(--paper-2); margin: 0 0.05em; }
 
 /* figures and captions */
 .fig { margin: 8px 0 0; border-radius: 6px; }
-.figcap {
-  margin: 10px 0 0; color: var(--text-2); font-size: 15.5px; line-height: 1.5;
-  text-align: left;
-}
-.title .figcap { text-align: center; max-width: 70ch; margin-left: auto; margin-right: auto; }
-.figs img { border: 1px solid var(--rule); border-radius: 6px; }
+.figcap { margin: 10px 0 0; color: var(--paper-2); font-size: 15.5px; line-height: 1.5; }
+.figs img { border-radius: 6px; background: #f7f5f1; }
 
-/* video comparison grids */
+/* comparison grids */
 .grid { display: grid; gap: 8px 10px; align-items: start; margin-top: 8px; }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid.labeled.grid-2 { grid-template-columns: auto repeat(2, minmax(0, 1fr)); }
 .grid.labeled.grid-3 { grid-template-columns: auto repeat(3, minmax(0, 1fr)); }
 .gap-wide { gap: 24px 32px; }
-.grid video { aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: #f2f2f2; }
+.grid video { aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: var(--ink-2); }
 .grid.portrait video { aspect-ratio: 8 / 9; object-position: 50% 40%; }
-.hdr, .row { font-size: 15px; color: var(--text-2); line-height: 1.3; }
+.hdr, .row { font-size: 15px; color: var(--paper-2); line-height: 1.3; }
 .hdr { padding: 2px 0; }
 .row { align-self: center; padding-right: 8px; }
 .grid .grid { margin-top: 0; }
@@ -72,13 +95,15 @@ img, video { display: block; width: 100%; height: auto; }
 /* citation */
 pre {
   margin: 0; padding: 16px 18px; overflow-x: auto;
-  background: #f6f6f6; border: 1px solid var(--rule); border-radius: 6px;
-  font-size: 14px; line-height: 1.55;
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--paper-2); font-size: 14px; line-height: 1.55;
 }
 
 @media (max-width: 640px) {
   body { font-size: 17px; }
-  main { padding: 36px 16px 60px; }
+  main { padding: 0 16px 60px; }
+  .hero { margin: 0 -16px 8px; min-height: 480px; }
+  .hero-inner { padding: 140px 16px 32px; }
   h2 { margin-top: 52px; }
   .grid-3, .grid.labeled.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .grid.labeled .row { grid-column: 1 / -1; padding: 6px 0 0; }
