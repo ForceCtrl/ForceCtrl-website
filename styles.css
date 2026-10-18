@@ -92,8 +92,13 @@ img, video { display: block; width: 100%; height: auto; }
 
 /* figures and captions */
 .fig { margin: 8px 0 0; border-radius: 6px; }
+#method .fig { background: #fff; padding: 12px; max-width: 720px; margin-left: auto; margin-right: auto; }
 .figcap { margin: 10px 0 0; color: var(--paper-2); font-size: 15.5px; line-height: 1.5; }
 .figs img { border-radius: 6px; background: #f7f5f1; }
+
+/* two text columns */
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-top: 8px; }
+.cols h3 { margin-top: 20px; }
 
 /* comparison grids */
 .grid { display: grid; gap: 8px 10px; align-items: start; margin-top: 8px; }
@@ -128,6 +133,6 @@ pre {
   .grid-3, .grid.labeled.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .grid.labeled .row { grid-column: 1 / -1; padding: 6px 0 0; }
   .grid.labeled > div:first-child { display: none; }
-  .gap-wide { grid-template-columns: minmax(0, 1fr); }
+  .gap-wide, .cols { grid-template-columns: minmax(0, 1fr); }
   .hdr { font-size: 13px; }
 }

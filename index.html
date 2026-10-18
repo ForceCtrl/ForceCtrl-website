@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ctrl-F: Force as an Interface for Humanoid Loco-Manipulation</title>
 <meta name="description" content="Ctrl-F augments humanoid motion tracking with an explicit force command: a 3-D force at each hand or foot, chosen online from object state.">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -58,11 +58,18 @@
 
 <section id="method">
   <h2>Method</h2>
-  <video class="fig" muted loop playsinline preload="none" poster="assets/posters/method_anim.jpg" data-lazy><source src="assets/clips/method_anim.mp4" type="video/mp4"></video>
-  <p><b>Stage 1, a motion&ndash;force tracker trained without objects.</b> During training we sample a force command and apply the opposite wrench to the hand or foot. Holding the reference under that wrench means exerting exactly the commanded force on the world, so the tracker learns to realise any command it is given.</p>
-  <p><b>Stage 2, a high-level force planner.</b> With the tracker frozen, a second policy reads the object state and proprioception and outputs one 3-D force per contact body. It is supervised by an analytical force model and refined by reinforcement learning scored on the object.</p>
-  <p><b>Deployment.</b> Neither policy observes a force sensor or the object's mass. Object pose comes from AprilTags; the command still adapts, from how the object moves.</p>
-
+  <p>Two policies, one interface. A low-level tracker follows the reference motion and realises whatever force it is commanded; a high-level planner decides that force. Neither observes a force sensor or the object's mass.</p>
+  <img class="fig" src="assets/fig/fig_method_hi.png" alt="Stage 1: object-free force training of the motion-force tracker. Stage 2: a high-level force planner on the frozen tracker." loading="lazy">
+  <div class="cols">
+    <div>
+      <h3>Stage 1: train the tracker to realise a commanded force</h3>
+      <p>Training has no objects. Each episode samples a 3-D force command for a hand or foot and applies the opposite wrench to that body. The only way to hold the reference pose under the wrench is to push back with exactly the commanded force, so the tracker learns a force channel without ever touching a thing.</p>
+    </div>
+    <div>
+      <h3>Stage 2: learn what force to command</h3>
+      <p>With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force per contact body. It starts from an analytical wrench-allocation model and is refined by reinforcement learning scored on the object's motion, so the command adapts when the load changes.</p>
+    </div>
+  </div>
   <div class="grid grid-2">
     <div>
       <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
