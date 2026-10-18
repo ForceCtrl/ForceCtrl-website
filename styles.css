@@ -34,9 +34,27 @@ p { margin: 0 0 14px; }
 a { color: var(--paper); }
 img, video { display: block; width: 100%; height: auto; }
 
+/* top nav */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 24px;
+  padding: 10px 24px;
+  background: rgba(14,15,18,0.88); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand { display: inline-flex; gap: 4px; text-decoration: none; }
+.key-sm { font-size: 12px; padding: 0.3em 0.5em 0.35em; border-radius: 3px; }
+.nav-links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+.nav-links a {
+  padding: 6px 10px; border-radius: 4px; white-space: nowrap;
+  color: var(--paper-2); text-decoration: none; font-size: 15px;
+}
+.nav-links a:hover { color: var(--paper); background: var(--ink-2); }
+.nav-links a.is-current { color: var(--paper); }
+
 /* hero */
 .hero {
-  position: relative; min-height: 560px; overflow: hidden;
+  position: relative; min-height: 520px; overflow: hidden;
   display: grid; align-items: end;
   margin: 0 -24px 8px; border-bottom: 1px solid var(--line);
 }
@@ -102,6 +120,8 @@ pre {
 @media (max-width: 640px) {
   body { font-size: 17px; }
   main { padding: 0 16px 60px; }
+  .nav { padding: 8px 12px; gap: 12px; }
+  .nav-links a { font-size: 14px; padding: 6px 8px; }
   .hero { margin: 0 -16px 8px; min-height: 480px; }
   .hero-inner { padding: 140px 16px 32px; }
   h2 { margin-top: 52px; }
