@@ -42,9 +42,7 @@
 
 <section id="abstract">
   <h2>Abstract</h2>
-  <p>Humanoid motion tracking has scaled to general policies that reproduce diverse human motion, but the resulting behavior is in free space: the tracker knows where the body should be, not how it should interact with the environment. Other work makes the object part of the objective, yet abstracts that interaction to contact or geometry, which leaves the demanding cases under-explored. We argue that force is the natural command channel missing between motion imitation and object interaction, the signal that says not just where to make contact, but how hard.</p>
-  <p>We present Ctrl-F, a hierarchical motion&ndash;force framework that augments motion tracking with an explicit force command, a 3-D force at each designated contact body such as a hand or a foot. A unified motion&ndash;force controller tracks the reference motion while applying the commanded force to the world, and a high-level force planner issues that command online from object state and proprioception.</p>
-  <p>In simulation and on hardware, Ctrl-F completes loco-manipulation that demands large, sustained interaction force and adjusts its command online as the load changes, both out of reach of a force-blind tracker. On hardware it drags, pushes and raises with the hands and kicks with a foot, reaching 20 kg on the pushed and the kicked box where the baseline moves nothing loaded, and it keeps dragging when weight is added mid-task.</p>
+  <p>Humanoid motion trackers know where the body should be, not how hard it should act on the world. Ctrl-F adds that missing channel: an explicit 3-D force command at each hand or foot. A motion&ndash;force tracker, trained without any object, realises the commanded force while following the reference motion, and a high-level planner chooses the command online from object state and proprioception. On a Unitree G1 this drags, pushes, raises and kicks loads up to 20 kg where a force-blind tracker moves nothing, and it keeps going when weight is added mid-task.</p>
 </section>
 
 <section id="problem">
