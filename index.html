@@ -32,8 +32,6 @@
   <div class="hero-inner">
     <p class="wordmark" aria-label="Ctrl-F"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">F</span></p>
     <h1>Force as an Interface for Humanoid Loco-Manipulation</h1>
-    <p class="lede">A motion tracker knows where the body should be. Ctrl-F adds how hard to act on the world: a 3-D force command at each hand or foot.</p>
-    <p class="authors">Anonymous authors &middot; ICRA 2027 submission &middot; Unitree G1</p>
     <p class="links">
       <a href="assets/ctrlf_icra_draft.pdf">Paper</a>
       <a href="#video">Video</a>
@@ -51,14 +49,13 @@
 
 <section id="problem">
   <h2>A pose cannot say how hard</h2>
-  <p>The same motion tracker, the same box. Empty, it lifts. With 2 kg inside, the hands slide and the box stays on the floor: nothing in a position reference specifies how hard to squeeze.</p>
+  <p>Nothing in a position reference specifies how hard to interact.</p>
   <div class="grid grid-2 portrait">
-    <div class="hdr">SONIC, 0 kg</div>
-    <div class="hdr">SONIC, 2 kg</div>
+    <div class="hdr">Baseline, 0 kg</div>
+    <div class="hdr">Baseline, 2 kg</div>
     <video muted loop playsinline preload="none" poster="assets/posters/bg_sonic_raise_0kg.jpg" data-lazy><source src="assets/clips/bg_sonic_raise_0kg.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/bg_sonic_raise_2kg.jpg" data-lazy><source src="assets/clips/bg_sonic_raise_2kg.mp4" type="video/mp4"></video>
   </div>
-  <p class="figcap">The baseline throughout is SONIC, a general motion tracker with public G1 weights and no force channel.</p>
 </section>
 
 <section id="method">
@@ -70,24 +67,24 @@
 
   <div class="grid grid-2">
     <div>
-      <video muted loop playsinline preload="none" poster="assets/posters/gauge.jpg" data-lazy><source src="assets/clips/gauge.mp4" type="video/mp4"></video>
-      <p class="figcap">A commanded force is a real force. A cord from the hand to a crane scale: 10, 20 and 30 N commanded read 8.8, 17 and 25 N on the scale.</p>
+      <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
+      <p class="figcap">The tracker under an external force, with and without the matching command.</p>
     </div>
     <div>
-      <video muted loop playsinline preload="none" poster="assets/posters/mech_sim.jpg" data-lazy><source src="assets/clips/mech_sim.mp4" type="video/mp4"></video>
-      <p class="figcap">What the tracker learned, on a static hold at 30 N. A wrench alone drags the hand down; adding the matching command restores the pose; the command alone lifts the hand.</p>
+      <video muted loop playsinline preload="none" poster="assets/posters/sup_gauge.jpg" data-lazy><source src="assets/clips/sup_gauge.mp4" type="video/mp4"></video>
+      <p class="figcap">Commanded force measured on a crane scale.</p>
     </div>
   </div>
 </section>
 
 <section id="hardware">
   <h2>Hardware</h2>
-  <p>Unitree G1 with onboard sensing and AprilTag object pose. SONIC and Ctrl-F run the same clips on the same objects. Loads are the weight added to the object.</p>
+  <p>Unitree G1 with onboard sensing and AprilTag object pose. The baseline is SONIC, a general motion tracker with public G1 weights and no force channel; it runs the same clips on the same objects. Loads are the weight added to the object.</p>
 
   <h3>Drag a crate</h3>
   <div class="grid grid-3 labeled">
     <div></div><div class="hdr">0 kg</div><div class="hdr">8 kg</div><div class="hdr">14 kg</div>
-    <div class="row">SONIC</div>
+    <div class="row">Baseline</div>
     <video muted loop playsinline preload="none" poster="assets/posters/drag_sonic_0.jpg" data-lazy><source src="assets/clips/drag_sonic_0.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/drag_sonic_8.jpg" data-lazy><source src="assets/clips/drag_sonic_8.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/drag_sonic_14.jpg" data-lazy><source src="assets/clips/drag_sonic_14.mp4" type="video/mp4"></video>
@@ -101,20 +98,20 @@
   <h3>Push a box</h3>
   <div class="grid grid-2 labeled">
     <div></div><div class="hdr">0 kg</div><div class="hdr">20 kg</div>
-    <div class="row">SONIC</div>
+    <div class="row">Baseline</div>
     <video muted loop playsinline preload="none" poster="assets/posters/push_sonic_0.jpg" data-lazy><source src="assets/clips/push_sonic_0.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/push_sonic_20.jpg" data-lazy><source src="assets/clips/push_sonic_20.mp4" type="video/mp4"></video>
     <div class="row">Ctrl-F</div>
     <video muted loop playsinline preload="none" poster="assets/posters/push_ours_0.jpg" data-lazy><source src="assets/clips/push_ours_0.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/push_ours_20.jpg" data-lazy><source src="assets/clips/push_ours_20.mp4" type="video/mp4"></video>
   </div>
-  <p class="figcap">SONIC moves neither box; Ctrl-F pushes both.</p>
+  <p class="figcap">The baseline moves neither box; Ctrl-F pushes both.</p>
 
   <div class="grid grid-2 gap-wide">
     <div>
       <h3>Raise a box, 2 kg</h3>
       <div class="grid grid-2 portrait">
-        <div class="hdr">SONIC</div><div class="hdr">Ctrl-F</div>
+        <div class="hdr">Baseline</div><div class="hdr">Ctrl-F</div>
         <video muted loop playsinline preload="none" poster="assets/posters/raise_sonic_2kg.jpg" data-lazy><source src="assets/clips/raise_sonic_2kg.mp4" type="video/mp4"></video>
         <video muted loop playsinline preload="none" poster="assets/posters/raise_ours_2kg.jpg" data-lazy><source src="assets/clips/raise_ours_2kg.mp4" type="video/mp4"></video>
       </div>
@@ -123,7 +120,7 @@
     <div>
       <h3>Sweep a box, 1 kg</h3>
       <div class="grid grid-2 portrait">
-        <div class="hdr">SONIC</div><div class="hdr">Ctrl-F</div>
+        <div class="hdr">Baseline</div><div class="hdr">Ctrl-F</div>
         <video muted loop playsinline preload="none" poster="assets/posters/sweep_sonic.jpg" data-lazy><source src="assets/clips/sweep_sonic.mp4" type="video/mp4"></video>
         <video muted loop playsinline preload="none" poster="assets/posters/sweep_ours.jpg" data-lazy><source src="assets/clips/sweep_ours.mp4" type="video/mp4"></video>
       </div>
@@ -133,12 +130,12 @@
 
   <h3>Stand kick</h3>
   <div class="grid grid-3 portrait">
-    <div class="hdr">SONIC, 0 kg</div><div class="hdr">Ctrl-F, 0 kg</div><div class="hdr">Ctrl-F, 20 kg</div>
+    <div class="hdr">Baseline, 0 kg</div><div class="hdr">Ctrl-F, 0 kg</div><div class="hdr">Ctrl-F, 20 kg</div>
     <video muted loop playsinline preload="none" poster="assets/posters/kick_sonic_0.jpg" data-lazy><source src="assets/clips/kick_sonic_0.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/kick_ours_0.jpg" data-lazy><source src="assets/clips/kick_ours_0.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/kick_ours_20.jpg" data-lazy><source src="assets/clips/kick_ours_20.mp4" type="video/mp4"></video>
   </div>
-  <p class="figcap">A foot is a force body too. SONIC cannot stand on one leg; Ctrl-F kicks the empty box and the 20 kg one.</p>
+  <p class="figcap">A foot is a force body too. The baseline cannot stand on one leg; Ctrl-F kicks the empty box and the 20 kg one.</p>
 
   <img class="fig" src="assets/fig/fig_real_tasks.jpg" alt="Frame strips of the hardware deployment: dragging the crate, pushing the box, raising the box and kicking the cart" loading="lazy">
   <p class="figcap">The composite task: carry a 1 kg box, walk, kick an 8 kg cart.</p>
@@ -150,7 +147,7 @@
 
   <h3>Drag, weight added</h3>
   <div class="grid grid-3">
-    <div class="hdr">SONIC, 0 &rarr; 8 kg</div><div class="hdr">Ctrl-F, command frozen, 8 &rarr; 14 kg</div><div class="hdr">Ctrl-F, 8 &rarr; 14 kg</div>
+    <div class="hdr">Baseline, 0 &rarr; 8 kg</div><div class="hdr">Ctrl-F, command frozen, 8 &rarr; 14 kg</div><div class="hdr">Ctrl-F, 8 &rarr; 14 kg</div>
     <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_sonic.jpg" data-lazy><source src="assets/clips/adp_drag_sonic.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_fixhl.jpg" data-lazy><source src="assets/clips/adp_drag_fixhl.mp4" type="video/mp4"></video>
     <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_ours.jpg" data-lazy><source src="assets/clips/adp_drag_ours.mp4" type="video/mp4"></video>
@@ -172,7 +169,7 @@
   <img class="fig" src="assets/fig/fig_sim_tasks.jpg" alt="Simulation tasks: raise, push, drag, lift and hold on a rope, kick, and composite carry-and-kick" loading="lazy">
   <div class="grid grid-2 gap-wide figs">
     <div>
-      <img src="assets/fig/fig_q2_hi.png" alt="Completion rate and object error as object mass increases, for Ctrl-F, Ctrl-F without the command, and SONIC" loading="lazy">
+      <img src="assets/fig/fig_q2_hi.png" alt="Completion rate and object error as object mass increases, for Ctrl-F, Ctrl-F without the command, and the baseline" loading="lazy">
       <p class="figcap">Load sweep. Force-blind arms fail within a quarter of the nominal mass; Ctrl-F stays above 90 % completion across the range.</p>
     </div>
     <div>
