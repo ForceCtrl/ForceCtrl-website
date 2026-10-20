@@ -62,7 +62,7 @@
   <img class="fig" src="assets/fig/fig_method_hi.png" alt="Stage 1: object-free force training of the motion-force tracker. Stage 2: a high-level force planner on the frozen tracker." loading="lazy">
 
   <h3>Stage 1: train the tracker to realise a commanded force</h3>
-  <p>Training has no objects. Each episode samples a 3-D force command for a force body and applies the opposite wrench to it. The only way to hold the reference pose under that wrench is to push back with exactly the commanded force, so the tracker learns a force channel without ever touching a thing.</p>
+  <p>Training has no objects. Each episode samples a 3-D force command for a force body and applies the opposite wrench to it. The only way to hold the reference pose under that wrench is to push back with exactly the commanded force, so the tracker learns the correspondence between a force command and the action that realises it, with no object in the loop.</p>
   <div class="grid grid-2">
     <div>
       <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
