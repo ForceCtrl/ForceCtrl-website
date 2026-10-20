@@ -42,12 +42,12 @@
 
 <section id="abstract">
   <h2>Abstract</h2>
-  <p>Humanoid motion trackers know where the body should be, not how hard it should act on the world. Ctrl-F adds that missing channel: an explicit 3-D force command at each hand or foot. A motion&ndash;force tracker, trained without any object, realises the commanded force while following the reference motion, and a high-level planner chooses the command online from object state and proprioception. On a Unitree G1 this drags, pushes, raises and kicks loads up to 20 kg where a force-blind tracker moves nothing, and it keeps going when weight is added mid-task.</p>
+  <p>Humanoid motion trackers know where the body should be, not how hard it should act on the world. Ctrl-F adds that missing channel: an explicit 3-D force command at each designated force body, a hand or a foot in our experiments. A motion&ndash;force tracker, trained without any object, realises the commanded force while following the reference motion, and a high-level planner chooses the command online from object state and proprioception. On a Unitree G1 this drags, pushes, raises and kicks loads up to 20 kg where a force-blind tracker moves nothing, and it keeps going when weight is added mid-task.</p>
 </section>
 
 <section id="problem">
-  <h2>A pose cannot say how hard</h2>
-  <p>Nothing in a position reference specifies how hard to interact.</p>
+  <h2>A pose says nothing about interaction</h2>
+  <p>A position reference says where the body goes, not what it does to the world.</p>
   <div class="grid grid-2 portrait">
     <div class="hdr">SONIC, 0 kg in the box</div>
     <div class="hdr">SONIC, 2 kg in the box</div>
@@ -58,28 +58,24 @@
 
 <section id="method">
   <h2>Method</h2>
-  <p>Two policies, one interface. A low-level tracker follows the reference motion and realises whatever force it is commanded; a high-level planner decides that force. Neither observes a force sensor or the object's mass.</p>
+  <p>The interface is a reference motion plus a force command. A low-level tracker follows the motion and realises whatever force it is commanded at each designated force body; a high-level planner decides that force. Neither observes a force sensor or the object's mass.</p>
   <img class="fig" src="assets/fig/fig_method_hi.png" alt="Stage 1: object-free force training of the motion-force tracker. Stage 2: a high-level force planner on the frozen tracker." loading="lazy">
-  <div class="cols">
-    <div>
-      <h3>Stage 1: train the tracker to realise a commanded force</h3>
-      <p>Training has no objects. Each episode samples a 3-D force command for a hand or foot and applies the opposite wrench to that body. The only way to hold the reference pose under the wrench is to push back with exactly the commanded force, so the tracker learns a force channel without ever touching a thing.</p>
-    </div>
-    <div>
-      <h3>Stage 2: learn what force to command</h3>
-      <p>With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force per contact body. It starts from an analytical wrench-allocation model and is refined by reinforcement learning scored on the object's motion, so the command adapts when the load changes.</p>
-    </div>
-  </div>
+
+  <h3>Stage 1: train the tracker to realise a commanded force</h3>
+  <p>Training has no objects. Each episode samples a 3-D force command for a force body and applies the opposite wrench to it. The only way to hold the reference pose under that wrench is to push back with exactly the commanded force, so the tracker learns a force channel without ever touching a thing.</p>
   <div class="grid grid-2">
     <div>
       <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
-      <p class="figcap">The tracker under an external force, with and without the matching command.</p>
+      <p class="figcap">The trained tracker under an external force: the hand sinks under the wrench alone and recovers once the matching command is given.</p>
     </div>
     <div>
       <video muted loop playsinline preload="none" poster="assets/posters/sup_gauge.jpg" data-lazy><source src="assets/clips/sup_gauge.mp4" type="video/mp4"></video>
-      <p class="figcap">Commanded force measured on a crane scale.</p>
+      <p class="figcap">On hardware, the commanded force measured on a crane scale.</p>
     </div>
   </div>
+
+  <h3>Stage 2: learn what force to command</h3>
+  <p>With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force per force body. It starts from an analytical wrench-allocation model and is refined by reinforcement learning scored on the object's motion, so the command adapts when the load changes.</p>
 </section>
 
 <section id="hardware">
