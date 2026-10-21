@@ -24,28 +24,50 @@
 
   function groupOf(v) { return groups.get(v.closest(".grid") || v); }
 
+  // The longest clip is the group's clock; the others are pulled to its time
+  // whenever they drift by more than 80 ms, hold their last frame once they
+  // run out, and all restart together when the clock ends.
+  const clocks = new Map();
+  function master(vs) {
+    return vs.reduce((m, v) => (!m || (v.duration || 0) > (m.duration || 0) ? v : m), null);
+  }
   function startGroup(vs) {
     if (reduce) return;
-    const ready = () => vs.every((v) => v.readyState >= 3);
-    const go = () => {
-      vs.forEach((v) => { v.currentTime = 0; const p = v.play(); if (p && p.catch) p.catch(() => {}); });
-    };
-    if (ready()) { go(); return; }
-    let pending = vs.length;
-    vs.forEach((v) => {
-      if (v.readyState >= 3) { pending -= 1; return; }
-      v.addEventListener("canplaythrough", () => { pending -= 1; if (pending === 0) go(); }, { once: true });
+    const waiting = vs.filter((v) => v.readyState < 3);
+    if (waiting.length) {
+      let pending = waiting.length;
+      waiting.forEach((v) => v.addEventListener("canplay", () => { pending -= 1; if (pending === 0) startGroup(vs); }, { once: true }));
+      return;
+    }
+    vs.forEach((v) => { v.currentTime = 0; });
+    Promise.all(vs.map((v) => v.play().catch(() => {}))).then(() => {
+      vs.forEach((v) => { v.currentTime = 0; });
     });
-  }
-
-  lazy.forEach((v) => {
-    v.addEventListener("ended", () => {
-      const vs = groupOf(v);
-      if (vs.every((x) => x.ended || x.paused)) {
-        if (vs.some((x) => x.ended) && vs.every((x) => x.ended)) startGroup(vs);
+    if (clocks.has(vs)) return;
+    const m = master(vs);
+    const tick = () => {
+      if (!clocks.has(vs)) return;
+      const t = m.currentTime;
+      vs.forEach((v) => {
+        if (v === m) return;
+        const target = Math.min(t, Math.max((v.duration || t) - 0.05, 0));
+        if (Math.abs(v.currentTime - target) > 0.08) v.currentTime = target;
+        if (v.ended || v.currentTime >= (v.duration || Infinity) - 0.06) { if (!v.paused) v.pause(); }
+        else if (v.paused && !m.paused) { v.play().catch(() => {}); }
+      });
+      if (m.ended) {
+        vs.forEach((v) => { v.currentTime = 0; });
+        vs.forEach((v) => v.play().catch(() => {}));
       }
-    });
-  });
+      requestAnimationFrame(tick);
+    };
+    clocks.set(vs, true);
+    requestAnimationFrame(tick);
+  }
+  function stopGroup(vs) {
+    clocks.delete(vs);
+    vs.forEach((v) => v.pause());
+  }
 
   const active = new Set();
   if ("IntersectionObserver" in window) {
@@ -61,7 +83,7 @@
           if (!active.has(g)) { active.add(g); startGroup(vs); }
         } else if (!e.isIntersecting && active.has(g)) {
           active.delete(g);
-          vs.forEach((v) => v.pause());
+          stopGroup(vs);
         }
       });
     }, { threshold: [0, 0.25, 0.6] });
