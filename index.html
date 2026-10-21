@@ -42,7 +42,7 @@
 
 <section id="abstract">
   <h2>Abstract</h2>
-  <p>Humanoid motion trackers know where the body should be, not how hard it should act on the world. Ctrl-F adds that missing channel: an explicit 3-D force command at each designated force body, a hand or a foot in our experiments. A motion&ndash;force tracker, trained without any object, realises the commanded force while following the reference motion, and a high-level planner chooses the command online from object state and proprioception. On a Unitree G1 this drags, pushes, raises and kicks loads up to 20 kg where a force-blind tracker moves nothing, and it keeps going when weight is added mid-task.</p>
+  <p>Humanoid motion trackers know where the body should be, not how hard it should act on the world. Ctrl-F adds that missing channel: an explicit 3-D force command at each designated force body, a hand or a foot in our experiments. A motion&ndash;force tracker, trained without any object, realises the commanded force while following the reference motion, and a high-level planner chooses the command online from object state and proprioception. On a Unitree G1 this drags, pushes, raises and kicks loads up to 20 kg where a force-blind tracker moves nothing, and the high-level planner adapts its command when the object's mass changes mid-task.</p>
 </section>
 
 <section id="problem">
@@ -202,6 +202,6 @@
 
 </main>
 
-<script src="main.js?v=3"></script>
+<script src="main.js?v=4"></script>
 </body>
 </html>
