@@ -66,18 +66,18 @@
   <div class="grid grid-2">
     <div>
       <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
-      <p class="figcap">The trained tracker under an external force, at half speed: the hand sinks under the wrench alone and recovers once the matching command is given.</p>
+      <p class="figcap">The trained tracker under an external force: the hand sinks under the wrench alone and recovers once the matching command is given. (0.5&times;)</p>
     </div>
     <div>
       <video muted loop playsinline preload="none" poster="assets/posters/sup_gauge.jpg" data-lazy><source src="assets/clips/sup_gauge.mp4" type="video/mp4"></video>
-      <p class="figcap">On hardware, the commanded force measured on a crane scale, at half speed.</p>
+      <p class="figcap">On hardware, the commanded force measured on a crane scale. (0.5&times;)</p>
     </div>
   </div>
 
   <h3>Stage 2: learn what force to command</h3>
-  <p>With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force per force body. It starts from an analytical wrench-allocation model and is refined by reinforcement learning scored on the object's motion. Because it reads the object's state at every step, its command follows the load when the load changes.</p>
+  <p>With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force per force body. It is trained with an analytical wrench-allocation model as its teacher and refined by reinforcement learning scored on the object's motion. Because it reads the object's state at every step, its command follows the load when the load changes.</p>
   <video class="fig" muted loop playsinline preload="none" poster="assets/posters/sim_mass_step.jpg" data-lazy><source src="assets/clips/sim_mass_step.mp4" type="video/mp4"></video>
-  <p class="figcap">The planner in simulation, at half speed; the green arrows are its force commands. The box gains 2.5 kg mid-hold; the commanded force (green) rises from 74 to 126 N within a second and the box stays where the reference puts it. No mass or force is observed.</p>
+  <p class="figcap">Adaptation to a mid-task mass change in simulation; green arrows are the force commands. (0.5&times;)</p>
 </section>
 
 <section id="hardware">
