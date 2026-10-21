@@ -94,6 +94,7 @@ img, video { display: block; width: 100%; height: auto; }
 .fig { margin: 8px 0 0; border-radius: 6px; }
 #method .fig { background: #fff; padding: 12px; max-width: 720px; margin-left: auto; margin-right: auto; }
 .figcap { margin: 10px 0 0; color: var(--paper-2); font-size: 15.5px; line-height: 1.5; }
+.fig + .figcap { text-align: center; }
 .figs img { border-radius: 6px; background: #f7f5f1; }
 
 /* two text columns */

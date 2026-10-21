@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ctrl-F: Force as an Interface for Humanoid Loco-Manipulation</title>
 <meta name="description" content="Ctrl-F augments humanoid motion tracking with an explicit force command: a 3-D force at each hand or foot, chosen online from object state.">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
 
@@ -13,11 +13,11 @@
   <a class="nav-brand" href="#top"><span class="key key-sm">Ctrl</span><span class="key key-sm">F</span></a>
   <div class="nav-links">
     <a href="#abstract">Abstract</a>
+    <a href="#video">Video</a>
     <a href="#method">Method</a>
     <a href="#hardware">Hardware</a>
     <a href="#adapt">Adaptation</a>
     <a href="#sim">Simulation</a>
-    <a href="#video">Video</a>
     <a href="#cite">Citation</a>
   </div>
 </nav>
@@ -43,6 +43,13 @@
 <section id="abstract">
   <h2>Abstract</h2>
   <p>Humanoid motion trackers know where the body should be, not how hard it should act on the world. Ctrl-F adds that missing channel: an explicit 3-D force command at each designated force body, a hand or a foot in our experiments. A motion&ndash;force tracker, trained without any object, realises the commanded force while following the reference motion, and a high-level planner chooses the command online from object state and proprioception. On a Unitree G1 this drags, pushes, raises and kicks loads up to 20 kg where a force-blind tracker moves nothing, and the high-level planner adapts its command when the object's mass changes mid-task.</p>
+</section>
+
+<section id="video">
+  <h2>Video</h2>
+  <video class="fig" controls playsinline preload="metadata" poster="assets/posters/teaser.jpg">
+    <source src="assets/video/ctrlf_supplementary_720p.mp4" type="video/mp4">
+  </video>
 </section>
 
 <section id="problem">
@@ -182,12 +189,6 @@
   </div>
 </section>
 
-<section id="video">
-  <h2>Video</h2>
-  <video class="fig" controls playsinline preload="metadata" poster="assets/posters/teaser.jpg">
-    <source src="assets/video/ctrlf_supplementary_720p.mp4" type="video/mp4">
-  </video>
-</section>
 
 <section id="cite">
   <h2>Citation</h2>
@@ -202,6 +203,6 @@
 
 </main>
 
-<script src="main.js?v=4"></script>
+<script src="main.js?v=5"></script>
 </body>
 </html>
