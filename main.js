@@ -14,15 +14,17 @@
   // Videos inside one comparison grid form a sync group: they start together
   // once every member can play, the shorter ones hold their last frame, and the
   // whole group restarts when the longest has ended.
+  // The task tiles are a looser group: they start together once all can play,
+  // then each loops on its own (their lengths differ too much to hold a clock).
+  const keyOf = (v) => v.closest(".grid, .tiles") || v;
+  const free = (g) => g.classList && g.classList.contains("tiles");
   const groups = new Map();
   lazy.forEach((v) => {
-    const g = v.closest(".grid") || v;
+    const g = keyOf(v);
     if (!groups.has(g)) groups.set(g, []);
     groups.get(g).push(v);
-    v.removeAttribute("loop");
+    if (!free(g)) v.removeAttribute("loop");
   });
-
-  function groupOf(v) { return groups.get(v.closest(".grid") || v); }
 
   // The longest clip is the group's clock; the others are pulled to its time
   // whenever they drift by more than 80 ms, hold their last frame once they
@@ -43,7 +45,7 @@
     Promise.all(vs.map((v) => v.play().catch(() => {}))).then(() => {
       vs.forEach((v) => { v.currentTime = 0; });
     });
-    if (clocks.has(vs)) return;
+    if (vs.free || clocks.has(vs)) return;
     const m = master(vs);
     const tick = () => {
       if (!clocks.has(vs)) return;
@@ -69,19 +71,25 @@
     vs.forEach((v) => v.pause());
   }
 
+  groups.forEach((vs, g) => { vs.free = free(g); });
   const active = new Set();
   if ("IntersectionObserver" in window) {
     const near = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { load(e.target); near.unobserve(e.target); } });
     }, { rootMargin: "600px 0px" });
+    // A group plays while any member is well in view and stops only once every
+    // member has left the screen (a tall group would otherwise restart as its
+    // top row scrolls out).
+    const seen = new Map();
     const vis = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        const g = e.target.closest(".grid") || e.target;
+        seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0);
+        const g = keyOf(e.target);
         const vs = groups.get(g);
         if (e.isIntersecting && e.intersectionRatio > 0.25) {
           vs.forEach(load);
           if (!active.has(g)) { active.add(g); startGroup(vs); }
-        } else if (!e.isIntersecting && active.has(g)) {
+        } else if (active.has(g) && vs.every((v) => !(seen.get(v) > 0))) {
           active.delete(g);
           stopGroup(vs);
         }
@@ -113,5 +121,33 @@
       v.addEventListener("click", () => { v.paused ? v.play() : v.pause(); });
       v.style.cursor = "pointer";
     });
+  }
+})();
+
+/* Live demos: one iframe, loaded on demand, swapped when another tab is picked. */
+(function () {
+  "use strict";
+  const tabs = Array.from(document.querySelectorAll(".demo-tabs button"));
+  const frame = document.getElementById("demo-iframe");
+  const placeholder = document.querySelector(".demo-placeholder");
+  if (!tabs.length || !frame) return;
+  function select(b) {
+    tabs.forEach((t) => t.classList.toggle("is-active", t === b));
+    frame.hidden = false; if (placeholder) placeholder.hidden = true;
+    frame.src = b.dataset.src; // assigning a new src discards the previous demo and its WASM instance
+  }
+  tabs.forEach((b) => b.addEventListener("click", () => select(b)));
+  // The first demo loads by itself, once the section comes near the viewport
+  // (it is about 10 MB, so not on page load).
+  const section = frame.closest("section") || frame;
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      if (!tabs.some((t) => t.classList.contains("is-active"))) select(tabs[0]);
+    }, { rootMargin: "400px 0px" });
+    io.observe(section);
+  } else {
+    select(tabs[0]);
   }
 })();
