@@ -1,8 +1,8 @@
 # local tooling
 .claude/
 .DS_Store
-# the in-browser simulator is not part of the first public version
-# (and carries the policy weights, which are released upon acceptance)
+# the in-browser simulator: only the files the three demos load are tracked
+# (added with `git add -f`); build tools, test scripts and package sources stay local
 sim/
 coi-serviceworker.min.js
 qr/

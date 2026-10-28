@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ctrl-F demo · force gauge</title>
+<script>
+  // Surface any failure on the page instead of leaving "loading…" on screen.
+  window.__reportError = function (msg) { var el = document.getElementById("status"); if (el) el.textContent = "error: " + msg; console.error("[demo] " + msg); };
+  window.addEventListener("error", function (e) { window.__reportError((e.message || "script error") + (e.filename ? " @ " + e.filename.split("/").slice(-2).join("/") + ":" + e.lineno : "")); });
+  window.addEventListener("unhandledrejection", function (e) { window.__reportError(String(e.reason && e.reason.stack || e.reason)); });
+</script>
+<script>if (new URLSearchParams(location.search).has("embed")) document.documentElement.classList.add("embed");</script>
+<style>
+  :root { --ink:#17181b; --ink2:#6d6a64; --cmd:#4f7f12; --ext:#5E52D3;
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: #0e0f12; color: #f4f2ee; font: 15px/1.45 var(--font); letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 8px; }
+  .sub { color: #a8a39a; margin: 0 0 20px; max-width: 62ch; }
+  .small { font-size: 13px; color: #8a867e; }
+  .embed main { padding: 0; max-width: none; } .embed h1, .embed .sub, .embed .small { display: none; }
+  /* the scene fills the frame; the controls float over its right side */
+  .demo { position: relative; height: 620px; border-radius: 20px; overflow: hidden; background: #a9a9ad; }
+  .embed .demo { height: 100vh; border-radius: 0; }
+  .stage { position: absolute; inset: 0; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: #a9a9ad; }
+  #overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .item { position: absolute; font-size: 44px; line-height: 1; will-change: transform, top; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35)); }
+  .panel {
+    position: absolute; top: 16px; right: 16px; width: 248px;
+    display: flex; flex-direction: column; gap: 18px; padding: 18px;
+    border-radius: 20px; color: var(--ink); background: rgba(255,255,255,0.74);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .panel.loading > :not(.status) { opacity: 0.35; pointer-events: none; }
+  .status { font-size: 12px; color: var(--ink2); } .status:empty { display: none; }
+  .lbl { display: block; font-size: 12px; font-weight: 500; color: var(--ink2); }
+  .big { margin-top: 2px; font-size: 40px; font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .unit { font-size: 16px; font-weight: 500; color: var(--ink2); margin-left: 4px; letter-spacing: 0; }
+  .cmd { color: var(--cmd); }
+  .minor { margin-top: 6px; font-size: 13px; color: var(--ink2); font-variant-numeric: tabular-nums; }
+  .minor b { font-weight: 600; color: var(--ext); }
+  input[type=range] { width: 100%; margin: 12px 0 0; accent-color: var(--ink); }
+  #items { display: flex; gap: 8px; margin-top: 8px; }
+  #items button {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 6px;
+    border: 0; border-radius: 14px; background: rgba(0,0,0,0.05); color: var(--ink); font: inherit; cursor: pointer;
+  }
+  #items button:hover:not(:disabled) { background: rgba(0,0,0,0.09); }
+  #items button:disabled { opacity: 0.3; cursor: default; }
+  .em { font-size: 24px; line-height: 1; } .kg { font-size: 11px; color: var(--ink2); }
+  .switch { position: relative; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink); cursor: pointer; user-select: none; }
+  .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .track { flex: none; position: relative; width: 38px; height: 22px; border-radius: 999px; background: rgba(0,0,0,0.14); transition: background .2s; }
+  .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.25); transition: transform .2s; }
+  .switch input:checked + .track { background: var(--ink); }
+  .switch input:checked + .track::after { transform: translateX(16px); }
+  .switch input:focus-visible + .track { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .reset { align-self: flex-start; height: 32px; padding: 0 16px; border: 1px solid rgba(0,0,0,0.2); border-radius: 999px; background: none; color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; }
+  .reset:hover { background: rgba(0,0,0,0.05); }
+  @media (max-width: 760px) {
+    .demo, .embed .demo { height: auto; border-radius: 0; background: none; overflow: visible; }
+    .stage { position: relative; height: 420px; border-radius: 16px; overflow: hidden; }
+    .panel { position: static; width: auto; margin-top: 12px; background: #f4f2ee; box-shadow: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .track, .track::after { transition: none; } }
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.min.js","three/addons/":"./vendor/three/examples/jsm/"}}</script>
+</head>
+<body>
+<main>
+  <h1>Pull-down gauge</h1>
+  <p class="sub">The right hand holds a handle chained to an overhead frame. Set a downward force command and the load cell in the chain shows what the low-level policy actually pulls. Everything runs in your browser: MuJoCo physics and the Stage 1 policy, no server.</p>
+  <div class="demo">
+    <div class="stage"><canvas id="view"></canvas></div>
+    <div class="panel loading" id="panel">
+      <div class="status" id="status">loading…</div>
+      <div>
+        <label class="lbl" for="cmd">Command</label>
+        <div class="big cmd"><span id="cmdval">0</span><span class="unit">N</span></div>
+        <input type="range" id="cmd" min="0" max="40" step="1" value="0">
+        <div class="minor">Measured <b id="reading">0.0</b> N</div>
+      </div>
+      <button id="reset" class="reset">Reset</button>
+    </div>
+  </div>
+  <p class="small" style="margin-top:14px">The policy is told how much force the hand should be exerting. With the command matched by the chain, the hand stays at its reference height; without the chain it would drop instead. Drag to orbit, scroll to zoom.</p>
+</main>
+<script type="module" src="js/demo1.js" onerror="window.__reportError('could not load js/demo1.js or one of its imports')"></script>
+</body>
+</html>

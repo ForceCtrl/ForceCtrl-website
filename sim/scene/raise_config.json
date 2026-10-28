@@ -1,0 +1,112 @@
+{
+ "init_qpos": [
+  -0.11887,
+  -0.01601,
+  0.76506,
+  0.99708,
+  -0.02319,
+  -0.01865,
+  0.07038,
+  -0.37028,
+  -0.09537,
+  -0.21893,
+  0.56544,
+  -0.14515,
+  0.01467,
+  -0.20796,
+  0.0483,
+  0.09296,
+  0.50316,
+  -0.26422,
+  0.03907,
+  -0.04933,
+  0.06665,
+  -0.00092,
+  -0.53213,
+  0.42512,
+  -0.07384,
+  0.25784,
+  -0.41688,
+  0.25909,
+  0.10597,
+  -0.72624,
+  -0.44834,
+  0.0368,
+  0.52058,
+  0.18403,
+  0.24554,
+  0.04025,
+  0.27949,
+  0.00983,
+  0.90888,
+  0.0,
+  -0.68178,
+  -0.73155,
+  0.0
+ ],
+ "ref_time_step": 600,
+ "policy_dt": 0.02,
+ "sim_substeps": 4,
+ "obj_ref_pos_w": [
+  0.2576,
+  0.0142,
+  0.9643
+ ],
+ "contact_point_obj_b": [
+  [
+   0.155,
+   0.03,
+   -0.038
+  ],
+  [
+   -0.155,
+   0.03,
+   -0.0321
+  ]
+ ],
+ "box_half_extents": [
+  0.155,
+  0.11,
+  0.1925
+ ],
+ "box_up_local": [
+  0,
+  0,
+  -1
+ ],
+ "box_mass": 2.0,
+ "mass_max": 4.0,
+ "mass_rate": 2.5,
+ "items": [
+  [
+   "🥤",
+   "cola",
+   0.5
+  ],
+  [
+   "🍎",
+   "apples",
+   1.0
+  ],
+  [
+   "📚",
+   "books",
+   1.5
+  ],
+  [
+   "🍉",
+   "watermelon",
+   2.0
+  ]
+ ],
+ "colors": {
+  "cmd": "#85B737",
+  "applied": "#5E52D3",
+  "robot": "#f4f4f4",
+  "floor": "#666668",
+  "grid": "#808082",
+  "sky": "#a9a9ad",
+  "crate": "#2F6FD8"
+ },
+ "note": "Hold frame 600 of the mjlab rollout, with the box moved 8 cm along its depth axis toward the robot (world shift [-0.077, -0.005, 0.02]) so the palm pads sit mid-face instead of on the rear edge; the desired contact points moved with them (local y 0.03). Checked in Node: 2 -> 4 kg holds with a 2 cm sag. Then levelled: rotated 15.3 deg about the grip line so local -z points up (tilt stays 3-6 deg in Node)."
+}
