@@ -244,6 +244,7 @@ pre {
 .hero .pill.solid:hover { background: #fff; }
 .hero .pill.out { border-color: rgba(244,242,238,0.8); color: #f4f2ee; }
 .hero .pill.out:hover { background: #f4f2ee; color: var(--ink); }
+.hero span.pill.out, .hero span.pill.out:hover { background: none; color: #f4f2ee; cursor: default; }   /* Code: no link yet */
 .hero .pill.quiet { background: rgba(244,242,238,0.14); color: rgba(244,242,238,0.72); }
 /* keycaps on the dark stage: pale caps on a grey body */
 .hero .key::before { background: #8a867e; box-shadow: 0 0.14em 0.5em rgba(0,0,0,0.5); }
@@ -278,6 +279,8 @@ pre {
 .sec.dark .demo-tabs button.is-active { background: #f4f2ee; color: var(--ink); box-shadow: none; }
 .sec.dark .demo-frame { background: #0e0f12; box-shadow: 0 0 0 1px rgba(255,255,255,0.08); }
 .sec.dark + .sec { padding-top: var(--sec); }
+#cite.sec { padding-block: 32px 40px; }   /* only the credits line until there is a citation */
+#cite .foot { margin-top: 0; }
 
 /* reveal */
 .js .rv { opacity: 0; transform: translateY(32px); transition: opacity .9s var(--ease), transform 1.1s var(--spring); }

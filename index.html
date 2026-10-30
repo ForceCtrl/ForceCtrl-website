@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=38">
+<link rel="stylesheet" href="styles.css?v=40">
 </head>
 <body>
 
@@ -22,7 +22,6 @@
     <a href="#adapt">Adaptation</a>
     <a href="#sim">Simulation</a>
     <a href="#demo">Try it</a>
-    <a href="#cite">Citation</a>
   </div>
 </nav>
 
@@ -43,7 +42,7 @@
     <p class="links">
       <a class="pill solid lg" href="assets/ctrlf_icra_draft.pdf">Paper</a>
       <a class="pill out lg" href="#video">Video</a>
-      <span class="pill quiet lg" title="Released upon acceptance">Code upon acceptance</span>
+      <span class="pill out lg">Code</span>
     </p>
   </div>
 </header>
@@ -205,11 +204,11 @@
       <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_fixhl.jpg" data-lazy><source src="assets/clips/adp_drag_fixhl.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_ours.jpg" data-lazy><source src="assets/clips/adp_drag_ours.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">SONIC stops. With the command frozen at its starting value the robot slows. With the planner it holds its pace: the two Ctrl-F arms differ only in whether the command may change.</p>
+    <p class="figcap center">SONIC stops. With the command frozen at its starting value the robot slows. With the planner it holds its pace: the two Ctrl-F experiments differ only in whether the command may change.</p>
   </div>
 
   <div class="wrap-mid block">
-    <h3 class="hl-sub">Hold a box on a rope, 1 + 1 kg</h3>
+    <h3 class="hl-sub">Hold a load, 1 + 1 kg</h3>
     <div class="grid grid-2">
       <div class="hdr">Ctrl-F, zero command</div><div class="hdr">Ctrl-F</div>
       <video muted loop playsinline preload="none" poster="assets/posters/adp_rope_0cmd.jpg" data-lazy><source src="assets/clips/adp_rope_0cmd.mp4" type="video/mp4"></video>
@@ -264,14 +263,6 @@
 
 <section id="cite" class="sec">
   <div class="wrap-copy">
-    <h2 class="hx">Citation</h2>
-<pre>@inproceedings{ctrlf2027,
-  title     = {Ctrl-F: Force as an Interface for Humanoid Loco-Manipulation},
-  author    = {Zhao, Mengjie and Chen, Yuxin and Shao, Yiyang and Hong, Chuye and
-               Chen, Jiakang and Sreenath, Koushil and Tomizuka, Masayoshi},
-  booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
-  year      = {2027}
-}</pre>
     <p class="foot">Built on <a href="https://github.com/mujocolab/mjlab">mjlab</a> and MuJoCo Warp.</p>
   </div>
 </section>

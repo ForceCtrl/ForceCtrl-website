@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ctrl-F demo · raise a box</title>
+<title>Ctrl-F demo: raise a box</title>
 <script>
   // Surface any failure on the page instead of leaving "loading…" on screen.
   window.__reportError = function (msg) { var el = document.getElementById("status"); if (el) el.textContent = "error: " + msg; console.error("[demo] " + msg); };
@@ -82,8 +82,8 @@
       <div>
         <span class="lbl">Command</span>
         <div class="big cmd"><span id="cmdAvg">0</span><span class="unit">N</span></div>
-        <div class="minor">L <span id="cmdL">0</span> · R <span id="cmdR">0</span> N</div>
-        <div class="minor">Measured L <b id="actL">0</b> · R <b id="actR">0</b> N</div>
+        <div class="minor">L <span id="cmdL">0</span> / R <span id="cmdR">0</span> N</div>
+        <div class="minor">Measured L <b id="actL">0</b> / R <b id="actR">0</b> N</div>
       </div>
       <div><span class="lbl">Crate <span id="mass">2.0</span> kg</span><div id="items"></div></div>
       <label class="switch"><input type="checkbox" id="freeze"><span class="track"></span>Freeze the learned planner</label>
