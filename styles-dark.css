@@ -1,0 +1,191 @@
+/* Ctrl-F project page. Dark ground, keycap wordmark, one typeface, no ornament. */
+
+:root {
+  --ink: #0e0f12;
+  --ink-2: #16181d;
+  --line: #2a2d36;
+  --paper: #eae6de;
+  --paper-2: #b9b4aa;
+  --muted: #8a867e;
+  --accent: #ff8a45;
+  --width: 960px;
+  --font: -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+main { max-width: var(--width); margin: 0 auto; padding: 0 24px 80px; }
+
+h1, h2, h3 { margin: 0; line-height: 1.2; font-weight: 600; }
+h2 { font-size: 26px; margin: 72px 0 16px; padding-top: 24px; border-top: 1px solid var(--line); }
+h3 { font-size: 19px; margin: 36px 0 12px; }
+p { margin: 0 0 14px; }
+a { color: var(--paper); }
+img, video { display: block; width: 100%; height: auto; }
+
+/* top nav */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 24px;
+  padding: 10px 24px;
+  background: rgba(14,15,18,0.88); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand { display: inline-flex; gap: 4px; text-decoration: none; }
+.key-sm { font-size: 12px; padding: 0.3em 0.5em 0.35em; border-radius: 3px; }
+.nav-links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+.nav-links a {
+  padding: 6px 10px; border-radius: 4px; white-space: nowrap;
+  color: var(--paper-2); text-decoration: none; font-size: 15px;
+}
+.nav-links a:hover { color: var(--paper); background: var(--ink-2); }
+.nav-links a.is-current { color: var(--paper); }
+
+/* hero */
+.hero {
+  position: relative; min-height: 520px; overflow: hidden;
+  display: grid; align-items: end;
+  margin: 0 -24px 8px; border-bottom: 1px solid var(--line);
+}
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.hero-shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(14,15,18,0.15) 0%, rgba(14,15,18,0.4) 45%, rgba(14,15,18,0.94) 100%),
+    linear-gradient(90deg, rgba(14,15,18,0.7) 0%, rgba(14,15,18,0.2) 55%, rgba(14,15,18,0) 100%);
+}
+.hero-inner { position: relative; padding: clamp(160px, 26vw, 280px) 24px 44px; max-width: 760px; }
+.hero h1 { font-size: clamp(26px, 3.4vw, 40px); margin: 14px 0 14px; max-width: 22ch; }
+.lede { color: var(--paper-2); max-width: 58ch; font-size: 18px; }
+.authors { color: var(--paper-2); margin-bottom: 16px; font-size: 16px; }
+.links { margin: 0; }
+.links a, .links span {
+  display: inline-block; margin: 0 8px 8px 0; padding: 8px 16px;
+  border: 1px solid var(--line); border-radius: 4px;
+  color: var(--paper); text-decoration: none; font-size: 16px;
+  background: rgba(22,24,29,0.75);
+}
+.links a:hover { border-color: var(--paper-2); }
+.links a:first-child { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.links span { color: var(--muted); }
+
+/* keycap wordmark */
+.wordmark { display: flex; align-items: center; gap: 0.18em; margin: 0; font-size: clamp(56px, 9vw, 104px); line-height: 1; }
+.key {
+  display: inline-block; font-weight: 700; line-height: 1; letter-spacing: -0.01em;
+  color: var(--ink); background: var(--paper);
+  border-radius: 0.14em; padding: 0.18em 0.32em 0.22em;
+  box-shadow: 0 0.06em 0 0 #b9b3a8, 0 0.12em 0 0 #8f8a80, 0 0.14em 0.5em rgba(0,0,0,0.5);
+}
+.plus { font-weight: 300; font-size: 0.55em; color: var(--paper-2); margin: 0 0.05em; }
+
+/* the hero wordmark types itself: Ctrl goes down, then F, both held, both released, a long rest, repeat.
+   The key is two parts so the press moves only the cap: the wrapper is the fixed base (the dark side and
+   the drop shadow never move), the cap carries the face and its bevel and slides down over the side. */
+.hero .key { position: relative; padding: 0 0 0.14em; background: none; box-shadow: none; }
+.hero .key::before { /* the side: starts one travel below the top, so nothing shows above a pressed cap */
+  content: ""; position: absolute; left: 0; right: 0; top: 0.14em; bottom: 0;
+  background: #8f8a80; border-radius: 0.14em; box-shadow: 0 0.04em 0.5em rgba(0,0,0,0.5);
+}
+.hero .cap {
+  display: block; position: relative; color: var(--ink); background: var(--paper);
+  border-radius: 0.14em; padding: 0.18em 0.32em 0.22em; box-shadow: 0 0.06em 0 0 #b9b3a8;
+  animation: 5s linear infinite;
+}
+.hero .key:first-child .cap { animation-name: press-ctrl; }
+.hero .key:last-child .cap { animation-name: press-f; }
+@keyframes press-ctrl {
+  0%, 8%     { transform: none; animation-timing-function: ease-in; }
+  9.5%, 36%  { transform: translateY(0.07em); background: #ddd8cf; animation-timing-function: ease-out; }
+  38%        { transform: translateY(-0.01em); }
+  39.5%, 100% { transform: none; }
+}
+@keyframes press-f {
+  0%, 20%    { transform: none; animation-timing-function: ease-in; }
+  21.5%, 36% { transform: translateY(0.07em); background: #ddd8cf; animation-timing-function: ease-out; }
+  38%        { transform: translateY(-0.01em); }
+  39.5%, 100% { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hero .cap { animation: none; } }
+
+/* figures and captions */
+.fig { margin: 8px 0 0; border-radius: 6px; }
+#method .fig { background: #fff; padding: 12px; max-width: 720px; margin-left: auto; margin-right: auto; }
+.figcap { margin: 10px 0 0; color: var(--paper-2); font-size: 15.5px; line-height: 1.5; }
+.fig + .figcap { text-align: center; }
+.figs img, .figs-one { border-radius: 6px; background: #f7f5f1; }
+.figs-one { margin-top: 24px; padding: 12px; }
+
+/* two text columns */
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-top: 8px; }
+.cols h3 { margin-top: 20px; }
+
+/* comparison grids */
+.grid { display: grid; gap: 8px 10px; align-items: start; margin-top: 8px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid.labeled.grid-2 { grid-template-columns: auto repeat(2, minmax(0, 1fr)); }
+.grid.labeled.grid-3 { grid-template-columns: auto repeat(3, minmax(0, 1fr)); }
+.gap-wide { gap: 24px 32px; }
+.grid video { aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: var(--ink-2); }
+.grid.portrait video { aspect-ratio: 8 / 9; object-position: 50% 40%; }
+.hdr, .row { font-size: 15px; color: var(--paper-2); line-height: 1.3; }
+.hdr { padding: 2px 0; }
+.row { align-self: center; padding-right: 8px; }
+.grid .grid { margin-top: 0; }
+.grid > div > .figcap { margin-top: 10px; }
+
+/* citation */
+pre {
+  margin: 0; padding: 16px 18px; overflow-x: auto;
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--paper-2); font-size: 14px; line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  main { padding: 0 16px 60px; }
+  .nav { padding: 8px 12px; gap: 12px; }
+  .nav-links a { font-size: 14px; padding: 6px 8px; }
+  .hero { margin: 0 -16px 8px; min-height: 480px; }
+  .hero-inner { padding: 140px 16px 32px; }
+  h2 { margin-top: 52px; }
+  .grid-3, .grid.labeled.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid.labeled .row { grid-column: 1 / -1; padding: 6px 0 0; }
+  .grid.labeled > div:first-child { display: none; }
+  .gap-wide, .cols { grid-template-columns: minmax(0, 1fr); }
+  .hdr { font-size: 13px; }
+}
+
+/* task tiles: nine looping clips, each on its own clock */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 8px auto 0; max-width: 600px; }
+.tile { position: relative; }
+.tile video { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; background: var(--ink-2); }
+.tile .tag { position: absolute; top: 8px; left: 10px; font-size: 15px; font-weight: 600; color: #1c1c1c; }
+@media (max-width: 760px) { .tiles { gap: 6px; } .tile .tag { font-size: 12px; top: 5px; left: 7px; } }
+
+/* live demos */
+.demo-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 10px; }
+.demo-tabs button {
+  padding: 8px 14px; border: 1px solid var(--line); border-radius: 4px; background: var(--ink-2);
+  color: var(--paper-2); font: inherit; font-size: 16px; cursor: pointer;
+}
+.demo-tabs button:hover { border-color: var(--paper-2); color: var(--paper); }
+.demo-tabs button.is-active { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.demo-frame { position: relative; height: 620px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--ink-2); }
+.demo-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.demo-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 16px; }
+/* the explicit display rules above would otherwise override the hidden attribute, leaving the placeholder on top of the iframe and eating its clicks */
+.demo-frame [hidden] { display: none !important; }
+@media (max-width: 760px) { .demo-frame { height: 920px; } }
