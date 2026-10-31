@@ -70,7 +70,6 @@
 <section id="problem" class="sec">
   <div class="wrap-copy head">
     <h2 class="hx">A pose says nothing about interaction</h2>
-    <p class="lede">A position reference says where the body goes, not what it does to the world.</p>
   </div>
   <div class="wrap-mid">
     <div class="grid grid-2 portrait">
@@ -85,7 +84,7 @@
 <section id="method" class="sec band">
   <div class="wrap-copy head">
     <h2 class="hx">Method</h2>
-    <p class="lede">The interface is a reference motion plus a force command. A low-level tracker follows the motion and realises whatever force it is commanded at each designated force body; a high-level planner decides that force.</p>
+    <p class="lede">The interface is a reference motion plus a force command. A low-level tracker follows the motion and produces the commanded force at each force body. A high-level planner decides that force.</p>
   </div>
   <div class="wrap-mid method-pin">
     <div class="pin">
@@ -98,7 +97,7 @@
     <div class="grid grid-2 stage-media">
       <div>
         <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
-        <p class="figcap">The trained tracker under an external force: the hand sinks under the wrench alone and recovers once the matching command is given. (0.5&times;)</p>
+        <p class="figcap">The trained tracker under an external force. The hand sinks when only the wrench is applied and recovers once the matching command is given. (0.5&times;)</p>
       </div>
       <div>
         <video muted loop playsinline preload="none" poster="assets/posters/sup_gauge.jpg" data-lazy><source src="assets/clips/sup_gauge.mp4" type="video/mp4"></video>
@@ -110,7 +109,7 @@
         <h3 class="hl-head">Stage 2: learn what force to command</h3>
         <p class="lede">With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force command per force body. It is trained with an analytical wrench-allocation model as its teacher and refined by reinforcement learning scored on the object's motion. Because it reads the object's state at every step, its command follows the load when the load changes.</p>
     <video class="card" muted loop playsinline preload="none" poster="assets/posters/sim_mass_step.jpg" data-lazy><source src="assets/clips/sim_mass_step.mp4" type="video/mp4"></video>
-    <p class="figcap">Adaptation to a mid-task mass change in simulation; green arrows are the force commands. (0.5&times;)</p>
+    <p class="figcap">Mid-task mass change in simulation. Green arrows are the force commands. (0.5&times;)</p>
       </div>
     </div>
   </div>
@@ -119,7 +118,7 @@
 <section id="hardware" class="sec">
   <div class="wrap-copy head">
     <h2 class="hx">Hardware</h2>
-    <p class="lede">Unitree G1 with onboard sensing and AprilTag object pose. SONIC is the baseline; it runs the same clips on the same objects. Loads are the weight added to the object.</p>
+    <p class="lede">Unitree G1 with onboard sensing and AprilTag object pose. SONIC is the baseline and runs the same clips on the same objects. Loads are the weight added to the object.</p>
   </div>
 
   <div class="wrap-mid block">
@@ -135,7 +134,7 @@
       <video muted loop playsinline preload="none" poster="assets/posters/drag_ours_8.jpg" data-lazy><source src="assets/clips/drag_ours_8.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/drag_ours_14.jpg" data-lazy><source src="assets/clips/drag_ours_14.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">Wheels locked. SONIC moves only the empty crate; Ctrl-F moves all three.</p>
+    <p class="figcap center">Wheels locked. SONIC moves only the empty crate. Ctrl-F moves all three.</p>
   </div>
 
   <div class="wrap-mid block">
@@ -149,7 +148,7 @@
       <video muted loop playsinline preload="none" poster="assets/posters/push_ours_0.jpg" data-lazy><source src="assets/clips/push_ours_0.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/push_ours_20.jpg" data-lazy><source src="assets/clips/push_ours_20.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">SONIC moves neither box; Ctrl-F pushes both.</p>
+    <p class="figcap center">SONIC moves neither box. Ctrl-F pushes both.</p>
   </div>
 
   <div class="wrap-mid block">
@@ -161,7 +160,7 @@
           <video muted loop playsinline preload="none" poster="assets/posters/raise_sonic_2kg.jpg" data-lazy><source src="assets/clips/raise_sonic_2kg.mp4" type="video/mp4"></video>
           <video muted loop playsinline preload="none" poster="assets/posters/raise_ours_2kg.jpg" data-lazy><source src="assets/clips/raise_ours_2kg.mp4" type="video/mp4"></video>
         </div>
-        <p class="figcap">SONIC's hands slide past; Ctrl-F squeezes and lifts, 9 of 10 trials.</p>
+        <p class="figcap">SONIC's hands slide off the box. Ctrl-F lifts it in 9 of 10 trials.</p>
       </div>
       <div>
         <h3 class="hl-sub">Sweep a box, 1 kg</h3>
@@ -183,12 +182,12 @@
       <video muted loop playsinline preload="none" poster="assets/posters/kick_ours_0.jpg" data-lazy><source src="assets/clips/kick_ours_0.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/kick_ours_20.jpg" data-lazy><source src="assets/clips/kick_ours_20.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">A foot is a force body too. SONIC cannot stand on one leg; Ctrl-F kicks the empty box and the 20 kg one.</p>
+    <p class="figcap center">SONIC cannot stand on one leg. Ctrl-F kicks both the empty box and the 20 kg one.</p>
   </div>
 
   <div class="wrap-mid block">
     <img class="card" src="assets/fig/fig_real_tasks.jpg" alt="Frame strips of the hardware deployment: dragging the crate, pushing the box, raising the box and kicking the cart" loading="lazy">
-    <p class="figcap center">The composite task: carry a 1 kg box, walk, kick an 8 kg cart.</p>
+    <p class="figcap center">Composite task. Carry a 1 kg box, walk, then kick an 8 kg cart.</p>
   </div>
 </section>
 
@@ -206,7 +205,7 @@
       <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_fixhl.jpg" data-lazy><source src="assets/clips/adp_drag_fixhl.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/adp_drag_ours.jpg" data-lazy><source src="assets/clips/adp_drag_ours.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">SONIC stops. With the command frozen at its starting value the robot slows. With the planner it holds its pace: the two Ctrl-F experiments differ only in whether the command may change.</p>
+    <p class="figcap center">SONIC stops. With the command frozen, the robot slows down. With the planner, it keeps its pace.</p>
   </div>
 
   <div class="wrap-mid block">
@@ -216,14 +215,14 @@
       <video muted loop playsinline preload="none" poster="assets/posters/adp_rope_0cmd.jpg" data-lazy><source src="assets/clips/adp_rope_0cmd.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/adp_rope_ours.jpg" data-lazy><source src="assets/clips/adp_rope_ours.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">Same network. With the command held at zero the hand sinks as weight is added; with the planner it stays at the reference height.</p>
+    <p class="figcap center">Same network in both. With the command held at zero, the hand sinks as weight is added. With the planner, it stays at the reference height.</p>
   </div>
 </section>
 
 <section id="sim" class="sec">
   <div class="wrap-copy head">
     <h2 class="hx">Simulation</h2>
-    <p class="lede">Nine tasks in three families: hands, feet, and hands with feet. One low-level and one high-level policy per family. Object mass is randomised between episodes and changed inside them.</p>
+    <p class="lede">Nine tasks using the hands, the feet, or both. Object mass is randomised between episodes and changed during them.</p>
   </div>
   <div class="wrap-mid">
     <div class="tiles">
@@ -241,7 +240,7 @@
   </div>
   <div class="wrap-mid block">
     <img class="card" src="assets/fig/fig_q2_dark.png" alt="Completion rate and object error as object mass increases, and success rate per task, for Ctrl-F, Ctrl-F without the command, and SONIC" loading="lazy">
-    <p class="figcap center">Load sweep. Without the force command, completion falls as mass grows; Ctrl-F stays above 90 % across the range.</p>
+    <p class="figcap center">Without the force command, completion drops as mass grows. Ctrl-F stays above 90% across the range.</p>
   </div>
 </section>
 
