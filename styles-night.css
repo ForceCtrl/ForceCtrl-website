@@ -1,0 +1,34 @@
+/* Ctrl-F project page, dark theme: loaded after styles.css by night.html (built from index.html by
+   _work/dark/build_night.py). Same layout and motion; tokens flipped, figures swapped for dark copies. */
+
+:root {
+  color-scheme: dark;
+  --page: #0b0b0d;
+  --band: #0b0b0d;
+  --fill: #1b1c1f;
+  --hair: #2e2f33;
+  --ink: #f2f0eb;
+  --ink2: #9b978f;
+  --accent: #f2f0eb;
+}
+
+.nav { background: rgba(11,11,13,0.72); box-shadow: 0 1px 0 var(--hair); }
+.nav .key { color: #17181b; background: #f2f0eb; box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 0.05em 0 0 #8a867e; }
+
+.pill.solid { color: #17181b; }
+.pill.solid:hover { background: #fff; }
+.pill.out:hover { color: #17181b; }
+.hero .cap, .hero .pill.solid, .hero .pill.out:hover { color: #17181b; }
+
+/* figures sit straight on the page, as the white ones do on the light page */
+.card.white, img.card { background: transparent; }
+.fig-stages .veil { background: var(--page); }
+
+/* sim tiles: the render background is light grey, so the label stays dark */
+.tile .tag { color: #17181b; }
+
+/* the mechanism clip has white bars at the sides: show only the render */
+video[poster$="sup_mech.jpg"] { aspect-ratio: 836 / 720; }
+
+.sec.dark { background: #111215; }
+.sec.dark .demo-tabs button.is-active { background: #f2f0eb; color: #17181b; }
