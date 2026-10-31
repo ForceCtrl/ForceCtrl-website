@@ -10,6 +10,7 @@
   --ink: #f2f0eb;
   --ink2: #9b978f;
   --accent: #f2f0eb;
+  --seg-on: #3a3b40;
 }
 
 .nav { background: rgba(11,11,13,0.72); box-shadow: 0 1px 0 var(--hair); }

@@ -209,9 +209,22 @@ pre {
 }
 .foot { margin-top: 20px; color: var(--ink2); font-size: 14px; }
 
+/* load switch for the labelled grids: phones only (main.js builds it from the column headers) */
+.load-switch { display: none; }
+
 @media (max-width: 734px) {
-  .grid.labeled .row { grid-column: 1 / -1; padding: 6px 0 0; }
-  .grid.labeled > div:first-child { display: none; }
+  .grid.labeled.grid-2, .grid.labeled.grid-3 { grid-template-columns: minmax(0, 1fr); }
+  .grid.labeled > div:first-child, .grid.labeled > .hdr, .grid.labeled > video.off { display: none; }
+  .grid.labeled .row { padding: 8px 0 0; }
+  .load-switch {
+    display: flex; width: fit-content; margin: 0 0 14px; padding: 3px; gap: 2px;
+    border-radius: 999px; background: var(--fill);
+  }
+  .load-switch button {
+    padding: 6px 14px; border: 0; border-radius: 999px; background: none;
+    color: var(--ink2); font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .load-switch button.is-active { background: var(--seg-on, #fff); color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
   .gap-wide { grid-template-columns: minmax(0, 1fr); }
   .grid { gap: 6px 8px; }
   .hdr { font-size: 12px; }

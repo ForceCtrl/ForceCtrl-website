@@ -151,3 +151,32 @@
     select(tabs[0]);
   }
 })();
+
+/* Phones: a labelled grid (rows SONIC / Ctrl-F, one column per load) shows one load at a time,
+   picked with a small switch built from the column headers. Desktop ignores both (CSS). */
+(function () {
+  "use strict";
+  document.querySelectorAll(".grid.labeled").forEach((g) => {
+    const hdrs = Array.from(g.querySelectorAll(":scope > .hdr"));
+    const n = hdrs.length;
+    let col = 0;
+    Array.from(g.children).forEach((c) => {
+      if (c.tagName === "VIDEO") { c.dataset.col = col % n; col += 1; }
+    });
+    const bar = document.createElement("div");
+    bar.className = "load-switch";
+    bar.setAttribute("role", "tablist");
+    const pick = (k) => {
+      Array.from(bar.children).forEach((b, i) => b.classList.toggle("is-active", i === k));
+      g.querySelectorAll(":scope > video").forEach((v) => v.classList.toggle("off", +v.dataset.col !== k));
+    };
+    hdrs.forEach((h, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.setAttribute("role", "tab"); b.textContent = h.textContent;
+      b.addEventListener("click", () => pick(i));
+      bar.appendChild(b);
+    });
+    g.before(bar);
+    pick(0);
+  });
+})();
