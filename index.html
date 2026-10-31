@@ -91,7 +91,7 @@
     <div class="steps">
       <div class="step" data-step="1">
         <h3 class="hl-head">Stage 1: train the tracker to realise a commanded force</h3>
-        <p class="lede">Training has no objects. Each episode samples a 3-D force command for a force body and applies the opposite wrench to it. The only way to hold the reference pose under that wrench is to push back with exactly the commanded force, so the tracker learns the correspondence between a force command and the action that realises it, with no object in the loop.</p>
+        <p class="lede">Training has no objects. Each episode samples a 3-D force command for a force body and applies the opposite wrench to it. The only way to hold the reference pose under that wrench is to push back with exactly the commanded force, so the tracker learns the correspondence between a force command and the action that realises it.</p>
     <div class="grid grid-2 stage-media">
       <div>
         <video muted loop playsinline preload="none" poster="assets/posters/sup_mech.jpg" data-lazy><source src="assets/clips/sup_mech.mp4" type="video/mp4"></video>
@@ -105,7 +105,7 @@
       </div>
       <div class="step" data-step="2">
         <h3 class="hl-head">Stage 2: learn what force to command</h3>
-        <p class="lede">With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force command per force body. It is trained with an analytical wrench-allocation model as its teacher and refined by reinforcement learning scored on the object's motion. Because it reads the object's state at every step, its command follows the load when the load changes.</p>
+        <p class="lede">With the tracker frozen, a planner reads the object state and the robot's proprioception and outputs one force command per force body. It is trained with an analytical wrench-allocation model as its teacher and refined by reinforcement learning scored on the object's motion. Its command adapts when the load changes.</p>
     <video class="card" muted loop playsinline preload="none" poster="assets/posters/sim_mass_step.jpg" data-lazy><source src="assets/clips/sim_mass_step.mp4" type="video/mp4"></video>
     <p class="figcap">Mid-task mass change in simulation. Green arrows are the force commands. (0.5&times;)</p>
       </div>
@@ -180,7 +180,7 @@
       <video muted loop playsinline preload="none" poster="assets/posters/kick_ours_0.jpg" data-lazy><source src="assets/clips/kick_ours_0.mp4" type="video/mp4"></video>
       <video muted loop playsinline preload="none" poster="assets/posters/kick_ours_20.jpg" data-lazy><source src="assets/clips/kick_ours_20.mp4" type="video/mp4"></video>
     </div>
-    <p class="figcap center">SONIC cannot stand on one leg. Ctrl-F kicks both the empty box and the 20 kg one.</p>
+    <p class="figcap center">SONIC cannot stand and kick on one leg. Ctrl-F kicks both the empty box and the 20 kg one.</p>
   </div>
 
   <div class="wrap-mid block">
